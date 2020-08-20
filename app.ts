@@ -1,7 +1,7 @@
-const text = 'Hello world'
+import { serve } from 'https://deno.land/std/http/server.ts'
 
-const encoder = new TextEncoder()
-const encodedText = encoder.encode(text)
+const server = serve({ port: 3000 })
 
-await Deno.writeFile('output.log', encodedText)
-console.log('Wrote to file!')
+for await (const req of server) {
+  req.respond({ body: 'Hello world\n' })
+}
