@@ -1,1 +1,3 @@
-output.log
+*.log
+node/node_modules
+Node/package-lock.json
