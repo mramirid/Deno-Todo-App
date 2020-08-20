@@ -1,1 +1,1 @@
-Latihan
+Deno
