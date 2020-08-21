@@ -1,30 +1,19 @@
 import { Router } from "https://deno.land/x/oak/mod.ts"
-import { v4 as uuid } from "https://deno.land/std/uuid/mod.ts"
 
-import Todo from '../models/Todo.ts'
+import * as todosController from '../controllers/todos.ts'
 
 const router = new Router()
 
+interface Todo {
+  id?: string
+  text: string
+}
+
 let todos: Todo[] = []
 
-router.get('/todos', (ctx) => {
-  ctx.response.body = { todos }
-})
+router.get('/todos', todosController.getTodos)
 
-router.post('/todos', async (ctx) => {
-  const bodyData = await ctx.request.body().value
-
-  const newTodo: Todo = {
-    id: uuid.generate(),
-    text: bodyData.text
-  }
-  todos.push(newTodo)
-
-  ctx.response.body = {
-    message: 'Created todo',
-    todo: newTodo
-  }
-})
+router.post('/todos', todosController.postTodo)
 
 router.put('/todos/:todoId', async (ctx) => {
   const todoId = ctx.params.todoId
