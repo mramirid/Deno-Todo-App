@@ -4,8 +4,10 @@ import todosRoutes from './routes/todos.ts'
 
 const app = new Application()
 
-app.use(async (_, next) => {
-  console.log('Middleware')
+app.use(async (ctx, next) => {
+  ctx.response.headers.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+  ctx.response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  ctx.response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
   await next()
 })
 
